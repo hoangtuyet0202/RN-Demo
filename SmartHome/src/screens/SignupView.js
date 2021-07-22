@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../assets/colors';
 import TextInputField from '../components/TextInputField';
-const { width, height } = Dimensions.get("screen")
+const {width , height} = Dimensions.get("screen")
 const COLORS = {
     red: '#F16969',
     dark_purple: '#06004A',
@@ -10,7 +10,7 @@ const COLORS = {
     black: '#0A0A0A',
     white: '#FCFCFC'
 }
-export default function LoginView({ navigation }) {
+export default function SignupView({ navigation}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const passwordRef = useRef(null);
@@ -21,7 +21,7 @@ export default function LoginView({ navigation }) {
             keyboardShouldPersistTaps="handled">
             <View style={styles.header}>
                 <Text style={styles.text_header}>
-                    Sign In
+                    Sign Up
                 </Text>
             </View>
             <View style={styles.footer}>
@@ -32,10 +32,10 @@ export default function LoginView({ navigation }) {
                     type="username"
                     inputValue={username}
                     setInputValue={setUsername}
-                    onSubmitEditing={() => {
-                        console.log('pass', passwordRef.current);
-                        passwordRef.current && passwordRef.current.focus();
-                    }}
+                    // onSubmitEditing={() => {
+                    //     console.log('pass', passwordRef.current);
+                    //     passwordRef.current && passwordRef.current.focus();
+                    // }}
                 />
                 <TextInputField
                     title="Password"
@@ -44,40 +44,41 @@ export default function LoginView({ navigation }) {
                     type="password"
                     inputValue={password}
                     setInputValue={setPassword}
-                    ref={passwordRef}
+                    //ref={passwordRef}
                 // customRef={passwordRef}
                 />
-                <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 16, marginLeft: width / 2 }}>
-                    <Text
-                        style={{
-                            color: Colors.blue_main,
-                            //fontFamily: 'BeVietnam-SemiBold',
-                            fontSize: 14,
-                        }}>
-                        Forget password?
-                    </Text>
-                </TouchableOpacity>
+                <TextInputField
+                    title="Confirm Password"
+                    placeholder="Confirm Password"
+                    containerStyle={{ marginTop: 16 }}
+                    type="confirmpassword"
+                    inputValue={password}
+                    setInputValue={setPassword}
+                    //ref={passwordRef}
+                // customRef={passwordRef}
+                />
                 <View style={styles.btnContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.replace('Home')}
                         style={[styles.btnStyle, { backgroundColor: Colors.blue_main }]}>
-                        <Text style={{ color: COLORS.white }}>Sign in</Text>
+                        <Text style={{ color: COLORS.white }}>Sign up</Text>
                     </TouchableOpacity>
                     <View style={{ marginTop: 24, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Text
                             style={{
                                 color: Colors.black,
                             }}>
-                            Don't have an account?
+                            Already have an account?
                         </Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('Sign up')}>
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack('Sign in')}
+                        >
                             <Text
                                 style={{
                                     color: Colors.blue_main,
                                     //fontFamily: 'BeVietnam-SemiBold',
                                     fontSize: 14,
                                 }}>
-                                {` Sign Up`}
+                                {` Sign In`}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50
     },
     footer: {
-        flex: 3,
+        flex: 5,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
