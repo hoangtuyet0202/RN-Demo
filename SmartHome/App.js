@@ -2,9 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import DetailsView from './src/screens/DetailsView';
-import HomeView from './src/screens/HomeView';
 import LoginView from './src/screens/LoginView';
+import MainHome from './src/screens/MainHome';
 const Stack = createStackNavigator();
 export default function App() {
     return (
@@ -15,8 +14,8 @@ export default function App() {
                 }}
             >
                 <Stack.Screen name='Sign in' component={LoginView} />
-                <Stack.Screen name='Home' component={HomeView} />
-                <Stack.Screen name='Details' component={DetailsView} />
+                <Stack.Screen name='Home' component={MainHome} />
+                {/* <Stack.Screen name='Details' component={DetailsView} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )
