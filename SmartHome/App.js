@@ -1,10 +1,10 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View } from 'react-native'
-import LoginView from './src/screens/LoginView'
-import SignupView from './src/screens/SignupView'
 import { NavigationContainer } from '@react-navigation/native';
-import TabView from './src/screens/TabView';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import DetailsView from './src/screens/DetailsView';
+import HomeView from './src/screens/HomeView';
+import LoginView from './src/screens/LoginView';
 const Stack = createStackNavigator();
 export default function App() {
     return (
@@ -15,8 +15,8 @@ export default function App() {
                 }}
             >
                 <Stack.Screen name='Sign in' component={LoginView} />
-                <Stack.Screen name='Sign up' component={SignupView} />
-                <Stack.Screen name='Home' component={TabView} />
+                <Stack.Screen name='Home' component={HomeView} />
+                <Stack.Screen name='Details' component={DetailsView} />
             </Stack.Navigator>
         </NavigationContainer>
     )

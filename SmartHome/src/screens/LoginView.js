@@ -3,13 +3,7 @@ import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from
 import { Colors } from '../assets/colors';
 import TextInputField from '../components/TextInputField';
 const { width, height } = Dimensions.get("screen")
-const COLORS = {
-    red: '#F16969',
-    dark_purple: '#06004A',
-    gray: '#B3B3BD',
-    black: '#0A0A0A',
-    white: '#FCFCFC'
-}
+
 export default function LoginView({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -61,9 +55,9 @@ export default function LoginView({ navigation }) {
                     <TouchableOpacity
                         onPress={() => navigation.replace('Home')}
                         style={[styles.btnStyle, { backgroundColor: Colors.blue_main }]}>
-                        <Text style={{ color: COLORS.white }}>Sign in</Text>
+                        <Text style={{ color: 'white' }}>Sign in</Text>
                     </TouchableOpacity>
-                    <View style={{ marginTop: 24, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    {/* <View style={{ marginTop: 24, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Text
                             style={{
                                 color: Colors.black,
@@ -80,7 +74,7 @@ export default function LoginView({ navigation }) {
                                 {` Sign Up`}
                             </Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </ScrollView>
@@ -112,7 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     btnContainer: {
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         flex: 1,
         flexGrow: 1,
         marginBottom: 20,
