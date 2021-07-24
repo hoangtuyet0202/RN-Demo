@@ -102,7 +102,8 @@ export default function LivingRoom() {
     };
     return (
         <View style={styles.container}>
-            <View style={[styles.indexStyle, { marginTop: 8 }]}>
+            {/* <View style={{ borderRadius: 16, paddingBottom: 32, backgroundColor: Colors.blue_background }}> */}
+            <View style={[styles.indexStyle, { marginTop: datas.length >= 3 ? 8: 32 }]}>
                 <View style={[styles.textView]}>
                     <Text style={styles.text}>Temperature</Text>
                 </View>
@@ -118,12 +119,12 @@ export default function LivingRoom() {
                         fontWeight: 'bold',
                     }}>
                     {'    '}
-                    32 °C
+                    25 °C
                 </Text>
             </View>
             <View style={[styles.indexStyle, { marginTop: 32 }]}>
                 <View style={[styles.textView]}>
-                    <Text style={styles.text}>Humid</Text>
+                    <Text style={styles.text}>Humid{'         '}</Text>
                 </View>
                 <Image
                     style={styles.image}
@@ -136,12 +137,12 @@ export default function LivingRoom() {
                         fontWeight: 'bold',
                     }}>
                     {' '}
-                    80.00
+                    75.00
                 </Text>
             </View>
             <View style={[styles.indexStyle, { marginTop: 32 }]}>
                 <View style={[styles.textView]}>
-                    <Text style={styles.text}>PPM</Text>
+                    <Text style={styles.text}>PPM{'            '}</Text>
                 </View>
                 <Image
                     style={styles.image}
@@ -157,11 +158,13 @@ export default function LivingRoom() {
                     45.45
                 </Text>
             </View>
+            {/* </View> */}
+
             <SafeAreaView
                 style={{
                     flex: 1,
                     width: WIDTH,
-                    marginTop: datas.length >= 3 ? 60 : 240,
+                    marginTop: datas.length >= 3 ? 40 : 220,
                 }}>
                 <FlatList
                     data={formatData(datas, numColumns)}

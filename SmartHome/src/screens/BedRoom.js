@@ -105,7 +105,7 @@ export default function BedRoom() {
     };
     return (
         <View style={styles.container}>
-            <View style={[styles.indexStyle, { marginTop: 8 }]}>
+            <View style={[styles.indexStyle, { marginTop: datas.length >= 3 ? 16: 32 }]}>
                 <View style={[styles.textView]}>
                     <Text style={styles.text}>Temperature</Text>
                 </View>
@@ -126,7 +126,7 @@ export default function BedRoom() {
             </View>
             <View style={[styles.indexStyle, { marginTop: 32 }]}>
                 <View style={[styles.textView]}>
-                    <Text style={styles.text}>Humid</Text>
+                    <Text style={styles.text}>Humid{'         '}</Text>
                 </View>
                 <Image
                     style={styles.image}
@@ -144,7 +144,7 @@ export default function BedRoom() {
             </View>
             <View style={[styles.indexStyle, { marginTop: 32 }]}>
                 <View style={[styles.textView]}>
-                    <Text style={styles.text}>PPM</Text>
+                    <Text style={styles.text}>PPM{'            '}</Text>
                 </View>
                 <Image
                     style={styles.image}
