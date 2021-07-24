@@ -48,7 +48,7 @@ export default TextInputField = forwardRef(
         <View
           style={[
             styles.inputContainer,
-            { borderColor: isFocused ? Colors.blue_main : Colors.gray },
+            { borderColor: isFocused ? Colors.blue_main : '#DFE8F1' },
             containerStyle,
           ]}>
           <View style={{ width: '80%' }}>
@@ -57,7 +57,7 @@ export default TextInputField = forwardRef(
               ref={ref}
               style={styles.textInput}
               placeholder={placeholder}
-              placeholderTextColor={Colors.gray}
+              placeholderTextColor='#748c94'
               // placeholderStyle={{fontFamily: 'BeVietnam-Bold'}}
               onBlur={handleBlur}
               onFocus={handleFocus}
