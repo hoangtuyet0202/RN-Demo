@@ -20,8 +20,7 @@ export default function BedRoom() {
     const datas = [
         { key: '1', name: 'Air Conditioner' },
         { key: '2', name: 'Light Buld' },
-        { key: '1', name: 'Air Conditioner' },
-        { key: '2', name: 'Light Buld' },
+        { key: '3', name: 'Air Purifier' },
     ];
     const [isEnabledLight, setIsEnabledLight] = useState(false);
     const toggleSwitchLight = () =>
@@ -29,6 +28,9 @@ export default function BedRoom() {
     const [isEnabledAir, setIsEnabledAir] = useState(false);
     const toggleSwitchAir = () =>
         setIsEnabledAir(previousState => !previousState);
+    const [isEnabledPurifier, setIsEnabledPurifier] = useState(false);
+    const toggleSwitchPurifier = () =>
+        setIsEnabledPurifier(previousState => !previousState);
     const formatData = (datas, numColumns) => {
         const totalRows = Math.floor(datas.length / numColumns);
         let totalLastRow = datas.length - totalRows * numColumns;
@@ -48,16 +50,27 @@ export default function BedRoom() {
             <View style={styles.itemStyle}>
                 <View style={{ alignItems: 'flex-start', margin: 16 }}>
                     {item.name === 'Air Conditioner' ? (
-                        <FontAwesome
-                            name="lightbulb-o"
-                            size={32}
-                            color={Colors.black}
+                        <Image
+                            style={styles.image}
+                            source={require('../assets/images/air-conditioner.png')}
                         />
                     ) : null}
                     {item.name === 'Light Buld' ? (
                         <Image
-                            style={styles.image}
-                            source={require('../assets/images/air-conditioner.png')}
+                            style={[
+                                styles.image,
+                                { backgroundColor: Colors.blue_background },
+                            ]}
+                            source={require('../assets/images/light.png')}
+                        />
+                    ) : null}
+                    {item.name === 'Air Purifier' ? (
+                        <Image
+                            style={[
+                                styles.image,
+                                { backgroundColor: Colors.blue_background },
+                            ]}
+                            source={require('../assets/images/air-purifier.png')}
                         />
                     ) : null}
                 </View>
@@ -99,13 +112,31 @@ export default function BedRoom() {
                             value={isEnabledLight}
                         />
                     ) : null}
+                    {item.name === 'Air Purifier' ? (
+                        <Switch
+                            trackColor={{
+                                false: Colors.gray,
+                                true: Colors.purple,
+                            }}
+                            thumbColor={
+                                isEnabledPurifier ? Colors.purple : '#f4f3f4'
+                            }
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitchPurifier}
+                            value={isEnabledPurifier}
+                        />
+                    ) : null}
                 </View>
             </View>
         );
     };
     return (
         <View style={styles.container}>
-            <View style={[styles.indexStyle, { marginTop: datas.length >= 3 ? 16: 32 }]}>
+            <View
+                style={[
+                    styles.indexStyle,
+                    { marginTop: datas.length >= 3 ? 16 : 32 },
+                ]}>
                 <View style={[styles.textView]}>
                     <Text style={styles.text}>Temperature</Text>
                 </View>
@@ -212,16 +243,14 @@ const styles = StyleSheet.create({
         margin: 8,
         borderRadius: 16,
         justifyContent: 'center',
-        borderWidth: 0.5,
-        borderColor: Colors.blue_background,
         height: WIDTH / numColumns - 16,
     },
     textView: {
-        marginHorizontal: 16
+        marginHorizontal: 16,
     },
     text: {
         color: Colors.blue_main,
         fontSize: 20,
         fontWeight: 'bold',
-    }
+    },
 });
