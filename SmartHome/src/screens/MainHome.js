@@ -8,7 +8,7 @@ import BedRoom from './BedRoom';
 import LivingRoom from './LivingRoom';
 import { Colors } from '../assets/colors';
 
-function MeScreen() {
+function StatisticsScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text>Profile!</Text>
@@ -51,11 +51,11 @@ export default function MainHome() {
                 ),
             }}/>
             
-            <Tab.Screen name="Me" component={MeScreen} options={{
+            <Tab.Screen name="Statistics" component={StatisticsScreen} options={{
                 tabBarIcon : ({ focused }) => (
                     <View style={{alignItems:'center', justifyContent:'center'}}>
-                        <FontAwesome name="user" color={focused ? '#407BFF'  : '#748c94'} size={24} />
-                        <Text style={{ color: focused ? '#407BFF'  : '#748c94' }}>Me</Text>
+                        <FontAwesome name="bar-chart-o" color={focused ? '#407BFF'  : '#748c94'} size={24} />
+                        <Text style={{ color: focused ? '#407BFF'  : '#748c94' }}>Statistics</Text>
                     </View>
                 ),
             }}/>
@@ -64,13 +64,13 @@ export default function MainHome() {
 }
 const styles = StyleSheet.create({
     shadow: {
-        shadowColor: '#7F5DF0',
+        shadowColor: '#407BFF',
         shadowOffset: {
             width: 0,
             height: 10,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
-        elevation: 5,
+        elevation: 10,
     },
 });

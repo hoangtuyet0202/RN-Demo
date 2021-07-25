@@ -46,7 +46,7 @@ export default function LivingRoom() {
             );
         }
         return (
-            <View style={styles.itemStyle}>
+            <View style={[styles.itemStyle, styles.shadow]}>
                 <View style={{ alignItems: 'flex-start', margin: 16 }}>
                     {item.name === 'Air Conditioner' ? (
                         <Image
@@ -247,5 +247,15 @@ const styles = StyleSheet.create({
         color: Colors.blue_main,
         fontSize: 20,
         fontWeight: 'bold',
-    }
+    },
+    shadow: {
+        shadowColor: Colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5,
+    },
 });
