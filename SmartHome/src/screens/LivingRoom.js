@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     Image,
@@ -20,7 +21,10 @@ export default function LivingRoom() {
         { key: '2', name: 'Light Buld' },
         { key: '3', name: 'Air Purifier' },
     ];
-
+    const [temperature, setTemperature] = useState(25.00);
+    const [humid, setHumid] = useState(80.00);
+    const [ppm, setPpm] = useState(40.00);
+    const [time, setTime] = useState(0);
     const [isEnabledLight, setIsEnabledLight] = useState(false);
     const toggleSwitchLight = () =>
         setIsEnabledLight(previousState => !previousState);
@@ -30,6 +34,29 @@ export default function LivingRoom() {
     const [isEnabledPurifier, setIsEnabledPurifier] = useState(false);
     const toggleSwitchPurifier = () =>
         setIsEnabledPurifier(previousState => !previousState);
+    useEffect(() => {
+        setTimeout(() => {
+            setTime(time +1)
+        }, 3000);  
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'GET',
+                    url: 'http://192.168.1.3:3001/get-air-quality'
+                });
+                const res = response.data;
+                if(res.success) {
+                    setTemperature(res.temperature);
+                    setHumid(res.humidity);
+                    setPpm(res.ppm);
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    }, [time])
+    
     const formatData = (datas, numColumns) => {
         const totalRows = Math.floor(datas.length / numColumns);
         let totalLastRow = datas.length - totalRows * numColumns;
@@ -104,7 +131,7 @@ export default function LivingRoom() {
                                 isEnabledLight ? Colors.purple : '#f4f3f4'
                             }
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitchLight}
+                            onValueChange={() => setIsEnabledLight(previousState => !previousState)}
                             value={isEnabledLight}
                         />
                     ) : null}
@@ -145,7 +172,7 @@ export default function LivingRoom() {
                         fontWeight: 'bold',
                     }}>
                     {'    '}
-                    26 °C
+                    {temperature.toFixed(0)} °C
                 </Text>
             </View>
             <View style={[styles.indexStyle, { marginTop: 32 }]}>
@@ -163,7 +190,7 @@ export default function LivingRoom() {
                         fontWeight: 'bold',
                     }}>
                     {' '}
-                    80.00
+                    {humid.toFixed(2)}
                 </Text>
             </View>
             <View style={[styles.indexStyle, { marginTop: 32 }]}>
@@ -181,7 +208,7 @@ export default function LivingRoom() {
                         fontWeight: 'bold',
                     }}>
                     {' '}
-                    45.45
+                    {ppm.toFixed(2)}
                 </Text>
             </View>
             {/* </View> */}

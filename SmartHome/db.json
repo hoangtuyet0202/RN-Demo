@@ -1,0 +1,21 @@
+{
+    "get-air-quality":
+        {
+            "success": true,
+            "id_room": 1,
+            "humidity": 12.01,
+            "temperature": 20.00,
+            "ppm": 44.00,
+            "date": "2000-10-08 00:00:00"
+        }
+    ,
+    "devices": [
+        {
+            "success": true,
+            "id": 1,
+            "type": "name_device",
+            "is-on-current": true,
+            "automatic": true
+        }
+    ]
+}

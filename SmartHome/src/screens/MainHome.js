@@ -7,14 +7,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import BedRoom from './BedRoom';
 import LivingRoom from './LivingRoom';
 import { Colors } from '../assets/colors';
+import StatisticsScreen from './StatisticsScreen';
 
-function StatisticsScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Profile!</Text>
-        </View>
-    );
-}
 const Tab = createBottomTabNavigator();
 
 export default function MainHome() {
