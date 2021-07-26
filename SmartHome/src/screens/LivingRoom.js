@@ -26,18 +26,18 @@ export default function LivingRoom() {
     const [ppm, setPpm] = useState(40.00);
     const [time, setTime] = useState(0);
     const [isEnabledLight, setIsEnabledLight] = useState(false);
-    const toggleSwitchLight = () =>
-        setIsEnabledLight(previousState => !previousState);
     const [isEnabledAir, setIsEnabledAir] = useState(false);
-    const toggleSwitchAir = () =>
-        setIsEnabledAir(previousState => !previousState);
     const [isEnabledPurifier, setIsEnabledPurifier] = useState(false);
-    const toggleSwitchPurifier = () =>
-        setIsEnabledPurifier(previousState => !previousState);
+    const [autoLight, setAutoLight] = useState(true);
+    const [autoAir, setAutoAir] = useState(true);
+    const [autoPurifier, setAutoPurifier] = useState(true);
+    const [changeAutoLight, setChangeAutoLight] = useState(false);
+    const [changeAutoAir, setChangeAutoAir] = useState(false);
+    const [changeAutoPurifier, setChangeAutoPurifier] = useState(false);
     useEffect(() => {
         setTimeout(() => {
-            setTime(time +1)
-        }, 3000);  
+            setTime(time + 1)
+        }, 3000);
         const fetchData = async () => {
             try {
                 const response = await axios({
@@ -45,7 +45,7 @@ export default function LivingRoom() {
                     url: 'http://192.168.1.3:3001/get-air-quality'
                 });
                 const res = response.data;
-                if(res.success) {
+                if (res.success) {
                     setTemperature(res.temperature);
                     setHumid(res.humidity);
                     setPpm(res.ppm);
@@ -56,7 +56,122 @@ export default function LivingRoom() {
         };
         fetchData();
     }, [time])
-    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'GET',
+                    url: 'http://192.168.1.3:3001/devices1'
+                });
+                const res = response.data;
+                if (res.success && res.automatic) {
+                    setAutoLight(res.automatic)
+                    setIsEnabledLight(res['is-on-current'])
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'PATCH',
+                    url: 'http://192.168.1.3:3001/devices1',
+                    data: {automatic: autoLight}
+                });
+                const res = response.data;
+                if (res.success) {
+                    console.log(`res`, res)
+                    setAutoLight(res.automatic)
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    }, [changeAutoLight])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'GET',
+                    url: 'http://192.168.1.3:3001/devices2'
+                });
+                const res = response.data;
+                if (res.success && res.automatic) {
+                    setAutoAir(res.automatic)
+                    setIsEnabledAir(res['is-on-current'])
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'PATCH',
+                    url: 'http://192.168.1.3:3001/devices2',
+                    data: {automatic: autoAir}
+                });
+                const res = response.data;
+                if (res.success) {
+                    console.log(`res`, res)
+                    setAutoAir(res.automatic)
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    }, [changeAutoAir])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'GET',
+                    url: 'http://192.168.1.3:3001/devices3'
+                });
+                const res = response.data;
+                if (res.success && res.automatic) {
+                    setAutoPurifier(res.automatic)
+                    setIsEnabledPurifier(res['is-on-current'])
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'PATCH',
+                    url: 'http://192.168.1.3:3001/devices3',
+                    data: {automatic: autoPurifier}
+                });
+                const res = response.data;
+                if (res.success) {
+                    console.log(`res`, res)
+                    setAutoPurifier(res.automatic)
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        fetchData();
+    }, [changeAutoPurifier])
     const formatData = (datas, numColumns) => {
         const totalRows = Math.floor(datas.length / numColumns);
         let totalLastRow = datas.length - totalRows * numColumns;
@@ -106,50 +221,102 @@ export default function LivingRoom() {
                     }}>
                     {item.name}
                 </Text>
-                <View style={{ alignItems: 'flex-start', margin: 16 }}>
-                    {item.name === 'Air Conditioner' ? (
+                {item.name === 'Air Conditioner' ? (
+                    <View style={{ alignItems: 'flex-start', margin: 16, flexDirection: 'row' }}>
                         <Switch
                             trackColor={{
                                 false: Colors.gray,
-                                true: Colors.purple,
+                                true: Colors.blue_main,
                             }}
                             thumbColor={
-                                isEnabledAir ? Colors.purple : '#f4f3f4'
+                                isEnabledAir ? Colors.blue_main : '#f4f3f4'
                             }
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitchAir}
+                            onValueChange={() =>
+                                setIsEnabledAir(previousState => !previousState)}
                             value={isEnabledAir}
                         />
-                    ) : null}
-                    {item.name === 'Light Buld' ? (
+                        <Text style={{marginLeft: 16,color: Colors.white}}>Auto:</Text>
                         <Switch
                             trackColor={{
                                 false: Colors.gray,
                                 true: Colors.purple,
                             }}
                             thumbColor={
-                                isEnabledLight ? Colors.purple : '#f4f3f4'
+                                autoAir ? Colors.purple : '#f4f3f4'
+                            }
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() =>
+                                {setAutoAir(previousState => !previousState)
+                                setChangeAutoAir(previousState => !previousState)}}
+                            value={autoAir}
+                        />
+                    </View>
+                ) : null}
+                {item.name === 'Light Buld' ? (
+                    <View style={{ alignItems: 'flex-start', margin: 16, flexDirection: 'row' }}>
+                        <Switch
+                            trackColor={{
+                                false: Colors.gray,
+                                true: Colors.blue_main,
+                            }}
+                            thumbColor={
+                                isEnabledLight ? Colors.blue_main : '#f4f3f4'
                             }
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={() => setIsEnabledLight(previousState => !previousState)}
                             value={isEnabledLight}
                         />
-                    ) : null}
-                    {item.name === 'Air Purifier' ? (
+                        <Text style={{marginLeft: 16,color: Colors.white}}>Auto:</Text>
                         <Switch
                             trackColor={{
                                 false: Colors.gray,
                                 true: Colors.purple,
                             }}
                             thumbColor={
-                                isEnabledPurifier ? Colors.purple : '#f4f3f4'
+                                autoLight ? Colors.purple : '#f4f3f4'
                             }
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitchPurifier}
+                            onValueChange={() =>
+                                {setAutoLight(previousState => !previousState)
+                                setChangeAutoLight(previousState => !previousState)}}
+                            value={autoLight}
+                        />
+                    </View>
+                ) : null}
+                {item.name === 'Air Purifier' ? (
+                    <View style={{ alignItems: 'flex-start', margin: 16, flexDirection: 'row' }}>
+                        <Switch
+                            trackColor={{
+                                false: Colors.gray,
+                                true: Colors.blue_main,
+                            }}
+                            thumbColor={
+                                isEnabledPurifier ? Colors.blue_main : '#f4f3f4'
+                            }
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() =>
+                                setIsEnabledPurifier(previousState => !previousState)}
                             value={isEnabledPurifier}
                         />
-                    ) : null}
-                </View>
+                        <Text style={{marginLeft: 16,color: Colors.white}}>Auto:</Text>
+                        <Switch
+                            trackColor={{
+                                false: Colors.gray,
+                                true: Colors.purple,
+                            }}
+                            thumbColor={
+                                autoPurifier ? Colors.purple : '#f4f3f4'
+                            }
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={() =>
+                                {setAutoPurifier(previousState => !previousState)
+                                setChangeAutoPurifier(previousState => !previousState)}}
+                            value={autoPurifier}
+                        />
+                    </View>
+                ) : null}
+
             </View>
         );
     };
