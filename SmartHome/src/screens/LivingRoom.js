@@ -94,6 +94,29 @@ export default function LivingRoom() {
         };
         fetchData();
     }, [changeAutoLight])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'PATCH',
+                    url: 'http://192.168.1.3:3001/devices1',
+                    data: {'is-on-current': isEnabledLight}
+                });
+                const res = response.data;
+                if (res.success) {
+                    console.log(`res`, res)
+                    setAutoLight(res.automatic)
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        if(!autoLight)
+        {
+            fetchData();
+        }
+
+    }, [changeAutoLight, isEnabledLight])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -133,7 +156,29 @@ export default function LivingRoom() {
         };
         fetchData();
     }, [changeAutoAir])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'PATCH',
+                    url: 'http://192.168.1.3:3001/devices2',
+                    data: {'is-on-current': isEnabledAir}
+                });
+                const res = response.data;
+                if (res.success) {
+                    console.log(`res`, res)
+                    setAutoLight(res.automatic)
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        if(!autoAir)
+        {
+            fetchData();
+        }
 
+    }, [changeAutoAir, isEnabledAir])
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -172,6 +217,29 @@ export default function LivingRoom() {
         };
         fetchData();
     }, [changeAutoPurifier])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios({
+                    method: 'PATCH',
+                    url: 'http://192.168.1.3:3001/devices3',
+                    data: {'is-on-current': isEnabledPurifier}
+                });
+                const res = response.data;
+                if (res.success) {
+                    console.log(`res`, res)
+                    setAutoLight(res.automatic)
+                }
+            } catch (error) {
+                console.log('Failed to get data from server: ', error);
+            }
+        };
+        if(!autoPurifier)
+        {
+            fetchData();
+        }
+
+    }, [changeAutoPurifier, isEnabledPurifier])
     const formatData = (datas, numColumns) => {
         const totalRows = Math.floor(datas.length / numColumns);
         let totalLastRow = datas.length - totalRows * numColumns;

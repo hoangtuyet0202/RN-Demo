@@ -12,7 +12,7 @@
     "id": 1,
     "type": "Light Buld",
     "is-on-current": true,
-    "automatic": true
+    "automatic": false
   },
   "devices2": {
     "success": true,
