@@ -8,7 +8,14 @@ export default function LoginView({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const passwordRef = useRef(null);
-
+    const onLogin = () => {
+        if(username === 'admin' && password ==='admin') {
+            navigation.replace('Home');
+        }
+        else {
+            alert('Login Failed!')
+        }
+    }
     return (
         <ScrollView
             contentContainerStyle={styles.container}
@@ -53,7 +60,7 @@ export default function LoginView({ navigation }) {
                 </TouchableOpacity>
                 <View style={styles.btnContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.replace('Home')}
+                        onPress={onLogin}
                         style={[styles.btnStyle, { backgroundColor: Colors.blue_main }]}>
                         <Text style={{ color: 'white' }}>Sign in</Text>
                     </TouchableOpacity>

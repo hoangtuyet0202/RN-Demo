@@ -11,7 +11,7 @@
     "success": true,
     "id": 1,
     "type": "Light Buld",
-    "is-on-current": true,
+    "is-on-current": false,
     "automatic": false
   },
   "devices2": {
@@ -19,13 +19,13 @@
     "id": 2,
     "type": "Air Conditioner",
     "is-on-current": true,
-    "automatic": false
+    "automatic": true
   },
   "devices3": {
     "success": true,
     "id": 3,
     "type": "Air Purifier",
     "is-on-current": true,
-    "automatic": false
+    "automatic": true
   }
 }
